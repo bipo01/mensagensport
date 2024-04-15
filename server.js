@@ -4,6 +4,12 @@ import pg from "pg";
 import env from "dotenv";
 import cors from "cors";
 
+import { fileURLToPath } from "url";
+import path from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 env.config();
 
 const app = express();
@@ -14,7 +20,10 @@ const db = new pg.Client({
 });
 db.connect();
 
-app.use(express.static("public"));
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
+
+app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/novamensagem", cors(), (req, res) => {
     db.query(
