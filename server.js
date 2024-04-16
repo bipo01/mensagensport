@@ -34,7 +34,7 @@ app.get("/novamensagem", cors(), (req, res) => {
     res.json("Mensagem enviada");
 });
 
-app.get("/", async (req, res) => {
+app.get("/1215110103", async (req, res) => {
     const result = await db.query("SELECT * FROM mensagens");
     const data = result.rows;
     console.log(data);
