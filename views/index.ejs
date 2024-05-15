@@ -15,6 +15,15 @@
             <p>Email: <%= data[i].email %></p>
             <p>Assunto: <%= data[i].assunto %></p>
             <p>Mensagem: <%= data[i].mensagem %></p>
+            <form action="/apagar" method="post">
+                <input
+                    type="hidden"
+                    name="idApagada"
+                    id="idApagada"
+                    value="<%= data[i].id%>"
+                />
+                <input type="submit" value="🗑️" />
+            </form>
         </div>
         <% } %> <% } %>
     </body>

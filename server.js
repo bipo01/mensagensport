@@ -3,6 +3,7 @@ import ejs from "ejs";
 import pg from "pg";
 import env from "dotenv";
 import cors from "cors";
+import bodyParser from "body-parser";
 
 import { fileURLToPath } from "url";
 import path from "path";
@@ -25,6 +26,8 @@ app.set("view engine", "ejs");
 
 app.use(express.static(path.join(__dirname, "public")));
 
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.get("/novamensagem", cors(), (req, res) => {
     db.query(
         "INSERT INTO mensagens(nome, email, assunto, mensagem) VALUES($1, $2, $3, $4)",
@@ -39,6 +42,12 @@ app.get("/1215110103", async (req, res) => {
     const data = result.rows;
     console.log(data);
     res.render("index.ejs", { data: data });
+});
+
+app.post("/apagar", (req, res) => {
+    db.query("DELETE FROM mensagens WHERE id = $1", [req.body.idApagada]);
+
+    res.redirect("/1215110103");
 });
 
 app.listen(port, () => {
